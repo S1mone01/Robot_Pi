@@ -1,0 +1,332 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="sim_create_base">
+    <gazebo>
+      <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+        <left_joint>left_wheel_joint</left_joint>
+        <right_joint>right_wheel_joint</right_joint>
+        <wheel_separation>${wheel_separation}</wheel_separation>
+        <wheel_radius>${wheel_radius}</wheel_radius>
+        <max_linear_velocity>1.0</max_linear_velocity>
+        <min_linear_velocity>-1.0</min_linear_velocity>
+        <max_angular_velocity>2.0</max_angular_velocity>
+        <min_angular_velocity>-2.0</min_angular_velocity>
+        <max_linear_acceleration>1.0</max_linear_acceleration>
+        <max_angular_acceleration>2.0</max_angular_acceleration>
+        <odom_publish_frequency>50</odom_publish_frequency>
+        <topic>cmd_vel</topic>
+        <odom_topic>odom</odom_topic>
+        <frame_id>odom</frame_id>
+        <child_frame_id>base_footprint</child_frame_id>
+      </plugin>
+      
+      <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+        <publish_link_pose>true</publish_link_pose>
+        <use_pose_vector_msg>true</use_pose_vector_msg>
+        <static_publisher>true</static_publisher>
+        <static_update_frequency>1</static_update_frequency>
+      </plugin>
+
+      <!-- ROS2 Bridge for topics -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>cmd_vel</ros_topic>
+        <gz_topic>cmd_vel</gz_topic>
+        <msg_type>geometry_msgs/msg/Twist</msg_type>
+      </plugin>
+
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>odom</ros_topic>
+        <gz_topic>odom</gz_topic>
+        <msg_type>nav_msgs/msg/Odometry</msg_type>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="left_wheel_link">
+      <mu>1.0</mu>
+      <mu2>1.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <min_depth>0.001</min_depth>
+      <max_vel>1.0</max_vel>
+      <material>
+        <ambient>0.2 0.2 0.2 1</ambient>
+        <diffuse>0.2 0.2 0.2 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+      </material>
+    </gazebo>
+
+    <gazebo reference="right_wheel_link">
+      <mu>1.0</mu>
+      <mu2>1.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <min_depth>0.001</min_depth>
+      <max_vel>1.0</max_vel>
+      <material>
+        <ambient>0.2 0.2 0.2 1</ambient>
+        <diffuse>0.2 0.2 0.2 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+      </material>
+    </gazebo>
+    
+    <gazebo reference="rear_wheel_link">
+      <mu>0.0</mu>
+      <mu2>0.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <min_depth>0.001</min_depth>
+      <max_vel>1.0</max_vel>
+      <material>
+        <ambient>0.2 0.2 0.2 1</ambient>
+        <diffuse>0.2 0.2 0.2 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+      </material>
+    </gazebo>
+
+    <gazebo reference="front_wheel_link">
+      <mu>0.0</mu>
+      <mu2>0.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <min_depth>0.001</min_depth>
+      <max_vel>1.0</max_vel>
+      <material>
+        <ambient>0.2 0.2 0.2 1</ambient>
+        <diffuse>0.2 0.2 0.2 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+      </material>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="sim_imu">
+    <gazebo reference="gyro_link">
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>imu/data</topic>
+        <enable_metrics>false</enable_metrics>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0017</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0017</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0017</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.017</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.017</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.017</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+      
+      <!-- ROS2 Bridge for IMU -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>imu/data</ros_topic>
+        <gz_topic>imu/data</gz_topic>
+        <msg_type>sensor_msgs/msg/Imu</msg_type>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="sim_create_wall_sensor">
+    <gazebo reference="wall_sensor_link">
+      <sensor name="wall_sensor" type="gpu_lidar">
+        <topic>wall_sensor/scan</topic>
+        <update_rate>20</update_rate>
+        <enable_metrics>false</enable_metrics>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.016</min>
+            <max>0.04</max>
+            <resolution>0.001</resolution>
+          </range>
+        </lidar>
+        <visualize>false</visualize>
+      </sensor>
+      
+      <!-- ROS2 Bridge for wall sensor -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>wall_sensor/scan</ros_topic>
+        <gz_topic>wall_sensor/scan</gz_topic>
+        <msg_type>sensor_msgs/msg/LaserScan</msg_type>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="sim_create_cliff_sensors">
+    <gazebo reference="left_cliff_sensor_link">
+      <sensor name="left_cliff_sensor" type="gpu_lidar">
+        <topic>left_cliff_sensor/scan</topic>
+        <update_rate>20</update_rate>
+        <enable_metrics>false</enable_metrics>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.01</min>
+            <max>0.04</max>
+            <resolution>0.001</resolution>
+          </range>
+        </lidar>
+        <visualize>false</visualize>
+      </sensor>
+      
+      <!-- ROS2 Bridge for left cliff sensor -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>left_cliff_sensor/scan</ros_topic>
+        <gz_topic>left_cliff_sensor/scan</gz_topic>
+        <msg_type>sensor_msgs/msg/LaserScan</msg_type>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="right_cliff_sensor_link">
+      <sensor name="right_cliff_sensor" type="gpu_lidar">
+        <topic>right_cliff_sensor/scan</topic>
+        <update_rate>20</update_rate>
+        <enable_metrics>false</enable_metrics>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.01</min>
+            <max>0.04</max>
+            <resolution>0.001</resolution>
+          </range>
+        </lidar>
+        <visualize>false</visualize>
+      </sensor>
+      
+      <!-- ROS2 Bridge for right cliff sensor -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>right_cliff_sensor/scan</ros_topic>
+        <gz_topic>right_cliff_sensor/scan</gz_topic>
+        <msg_type>sensor_msgs/msg/LaserScan</msg_type>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="leftfront_cliff_sensor_link">
+      <sensor name="leftfront_cliff_sensor" type="gpu_lidar">
+        <topic>leftfront_cliff_sensor/scan</topic>
+        <update_rate>20</update_rate>
+        <enable_metrics>false</enable_metrics>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.01</min>
+            <max>0.04</max>
+            <resolution>0.001</resolution>
+          </range>
+        </lidar>
+        <visualize>false</visualize>
+      </sensor>
+      
+      <!-- ROS2 Bridge for leftfront cliff sensor -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>leftfront_cliff_sensor/scan</ros_topic>
+        <gz_topic>leftfront_cliff_sensor/scan</gz_topic>
+        <msg_type>sensor_msgs/msg/LaserScan</msg_type>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="rightfront_cliff_sensor_link">
+      <sensor name="rightfront_cliff_sensor" type="gpu_lidar">
+        <topic>rightfront_cliff_sensor/scan</topic>
+        <update_rate>20</update_rate>
+        <enable_metrics>false</enable_metrics>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.01</min>
+            <max>0.04</max>
+            <resolution>0.001</resolution>
+          </range>
+        </lidar>
+        <visualize>false</visualize>
+      </sensor>
+      
+      <!-- ROS2 Bridge for rightfront cliff sensor -->
+      <plugin filename="gz-sim-ros-gz-bridge-system" name="gz::sim::systems::RosGzBridge">
+        <ros_topic>rightfront_cliff_sensor/scan</ros_topic>
+        <gz_topic>rightfront_cliff_sensor/scan</gz_topic>
+        <msg_type>sensor_msgs/msg/LaserScan</msg_type>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>
