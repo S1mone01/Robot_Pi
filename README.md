@@ -66,7 +66,7 @@ You can connect to a remote server using either **Ubuntu File Manager (SFTP)** o
 
 ## 🎮 Robot Control
 
-### Manual Control
+### Manual Teleop
 
 - **Keyboard control**
 ```bash
