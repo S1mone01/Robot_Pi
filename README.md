@@ -179,9 +179,42 @@ ros2 launch create_bringup zone_maker.py node:=speed slow_value:=40
 
 > **Speed Range:** Values from 1% to 99% of maximum speed
 
+### 📍 Interactive Zone Creation
+
+#### Clicked Point Topic
+**Topic:** `/clicked_point`  
+**Message Type:** `geometry_msgs/msg/PointStamped`
+
+#### Polygon Zone Creation Process
+1. **Launch zone maker** (cleaning or speed limiter mode)
+2. **Click 4 points** on the map interface to define polygon corners
+3. **Zone is automatically created** from the 4-point polygon
+
+#### Manual Point Publishing
+```bash
+# Example: Publish a point for zone creation
+ros2 topic pub /clicked_point geometry_msgs/msg/PointStamped "
+header:
+  frame_id: 'map'
+point:
+  x: 2.5
+  y: 1.8
+  z: 0.0"
+```
+
+#### Zone Creation Workflow
+| Step | Action | Result |
+|------|--------|---------|
+| **1** | Launch zone_maker.py | System ready for point input |
+| **2** | Click/publish point 1 | First corner defined |
+| **3** | Click/publish point 2 | Second corner defined |
+| **4** | Click/publish point 3 | Third corner defined |
+| **5** | Click/publish point 4 | **Polygon zone created** |
+
 ### Zone Types
 - **Exclusion Zones:** Areas the robot should avoid
 - **Speed Zones:** Areas with reduced speed limits
+- **Cleaning Zones:** Designated cleaning areas with specific parameters
 - **Priority Zones:** Areas requiring special attention
 
 ---
