@@ -220,9 +220,7 @@ For Raspberry Pi Camera with Ubuntu 24.04, follow the comprehensive setup guide:
 
 ## 🔍 Troubleshooting & Diagnostics
 
-### Essential Debugging Commands
-
-#### System Status Checks
+### System Status Checks
 
 **List all active ROS2 topics**
 ```bash
@@ -237,7 +235,7 @@ ros2 topic echo /topic_name
 ros2 node list
 ```
 
-#### Network Diagnostics
+### Network Diagnostics
 
 **Check network connectivity**
 ```bash
