@@ -56,14 +56,18 @@ sudo systemctl restart chrony
 ```
 >This command was used when the Raspberry Pi was acting as a hotspot to synchronize the system time.
 
-### 2. Launch Configurations
+# ROS2 Create Launch Configurations
 
-#### 🎥 Camera Only Mode
+## Available Launch Modes
+
+### 🎥 Camera Only Mode
+Basic configuration with camera functionality only.
 ```bash
 ros2 launch create_bringup create_2.py camera:=true navigation:=false foxglove:=false
 ```
 
-#### 🗺️ Full System (Raspberry Pi)
+### 🗺️ Full Navigation System
+Complete system setup for Raspberry Pi with navigation capabilities.
 ```bash
 ros2 launch create_bringup create_2.py \
   camera:=true \
@@ -72,7 +76,8 @@ ros2 launch create_bringup create_2.py \
   map:=map_file.yaml
 ```
 
-#### 🧠 AI-Enhanced System
+### 🧠 AI-Enhanced System
+Full system with AI capabilities, enabling the ROS bridge to connect to the MCP on the host PC.
 ```bash
 ros2 launch create_bringup create_2.py \
   camera:=true \
@@ -80,6 +85,24 @@ ros2 launch create_bringup create_2.py \
   foxglove:=true \
   rosbridge:=true \
   map:=map_file.yaml
+```
+
+## Mapping Operations
+
+### 🗺️ Mapping Mode
+Launch the robot in mapping configuration.
+```bash
+ros2 launch create_bringup create_2M.py
+```
+## 🤖 Autonomous Mapping
+Start autonomous exploration and mapping.
+```bash
+ros2 run custom_explorer explorer
+```
+## 💾 Save Generated Map
+Save the created map to file (replace `<map_name>` with your desired filename).
+```bash
+ros2 run nav2_map_server map_saver_cli -f <map_name>
 ```
 
 ---
