@@ -6,13 +6,16 @@ A comprehensive robotics control system built with ROS2 Jazzy, featuring autonom
 
 ## 📋 Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [System Configuration](#system-configuration)
-- [Robot Operations](#robot-operations)
-- [PC Operations](#pc-operations)
-- [Advanced Features](#advanced-features)
-- [Troubleshooting](#troubleshooting)
+- [Prerequisites](#-prerequisites)
+- [Quick Start](#-quick-start)
+- [System Configuration](#-system-configuration)
+- [Robot Control](#-robot-control)
+- [Advanced Robot Operations](#-advanced-robot-operations)
+- [Zone Management System](#-zone-management-system)
+- [Integration & Monitoring](#-integration--monitoring)
+- [Camera Configuration](#-camera-configuration)
+- [Troubleshooting & Diagnostics](#-troubleshooting--diagnostics)
+- [Additional Resources](#-additional-resources)
 
 ---
 
