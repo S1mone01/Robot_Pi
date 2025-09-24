@@ -1,6 +1,6 @@
 # 🤖 ROS2 Robot Control System
 
-A comprehensive robotics control system built with ROS2 Jazzy, featuring autonomous navigation, mapping, camera integration, and remote operation capabilities.
+A fully integrated robotics control system using ROS2 Jazzy, designed for the iRobot 670 with Create 2 drivers. It supports autonomous navigation, real-time mapping, camera integration, and remote operation
 
 ---
 
