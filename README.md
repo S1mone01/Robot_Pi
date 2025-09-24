@@ -187,7 +187,7 @@ ros2 launch create_bringup zone_maker.py node:=speed slow_value:=40
 ### Zone Types
 - **Exclusion Zones:** Areas the robot should avoid
 - **Speed Zones:** Areas with reduced speed limits
-- 
+
 ## 🔧 Integration & Monitoring
 
 ### Foxglove Bridge Integration
