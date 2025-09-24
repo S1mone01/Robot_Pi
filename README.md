@@ -156,7 +156,7 @@ ros2 launch create_bringup undocking.py
 
 **Maps Storage Location:**
 ```
-/home/simone/robot/install/create_bringup/share/create_bringup/
+~/robot/src/create_bringup/map/
 ```
 
 #### Map Operations
@@ -330,7 +330,7 @@ ps aux | grep ros
 ### Configuration Files
 - Launch files: `~/robot/src/create_bringup/launch/`
 - Parameter files: `~/robot/src/create_bringup/config/`
-- Map files: `~/robot/install/create_bringup/share/create_bringup/`
+- Map files: `~/robot/src/create_bringup/map/`
 
 ### Useful ROS2 Commands
 ```bash
