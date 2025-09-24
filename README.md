@@ -208,37 +208,23 @@ ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 
 ## 📷 Camera Setup
 
-For Raspberry Pi Camera 3 with Ubuntu 24.04, follow the setup guide:
+For Raspberry Pi Camera with Ubuntu 24.04, follow the setup guide:
 [Raspberry Pi 5 Camera Setup](https://www.reddit.com/r/Ubuntu/comments/1ddpnto/raspberry_pi_5_running_2404_with_a_pi_camera_3/)
 
 ## 🔍 Troubleshooting
 
-### Common Issues
-- **USB Ports:** Check available ports with `ls /dev/ttyUSB*`
-- **Time Sync:** Restart chrony service for accurate timestamps
-- **Network:** Verify robot and PC are on the same network
-- **Permissions:** Ensure proper permissions for USB devices
-
 ### Debugging Commands
+
+- **Check ROS2 topics**
 ```bash
-# Check ROS2 topics
 ros2 topic list
-
-# Monitor specific topics
+```
+- **Monitor specific topics**
+```bash
 ros2 topic echo /topic_name
-
-# Check node status
+```
+- **Check node status**
+```bash
 ros2 node list
 ```
 
-## 📝 License
-
-This project is open source. Please check the LICENSE file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
-
----
-
-**Made with ❤️ for robotics enthusiasts**
