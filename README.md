@@ -216,13 +216,6 @@ ros2 launch create_bringup localization.py
 For Raspberry Pi Camera with Ubuntu 24.04, follow the comprehensive setup guide:
 
 **Reference:** [Raspberry Pi 5 Camera Setup Guide](https://www.reddit.com/r/Ubuntu/comments/1ddpnto/raspberry_pi_5_running_2404_with_a_pi_camera_3/)
-
-#### Key Steps:
-1. Enable camera interface in `raspi-config`
-2. Install required camera drivers
-3. Configure camera permissions
-4. Test camera functionality
-
 ---
 
 ## 🔍 Troubleshooting & Diagnostics
