@@ -38,21 +38,17 @@ sudo systemctl restart chrony
 ros2 launch create_bringup create_2.py camera:=true navigation:=false foxglove:=false
 
 # Full system on Raspberry Pi
-ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true map:=map_palermo.yaml
+ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true map:=map_file.yaml
 
 # Full system with AI integration
-ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true rosbridge:=true map:=map_palermo.yaml
+ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true rosbridge:=true map:=map_file.yaml
 ```
 
 ## 🌐 Network Configuration
 
 ### WiFi Connection
 ```bash
-# Connect to SPACEBALL1
-sudo nmcli device wifi connect "SPACEBALL1" password "12345678"
-
-# Connect to Enel Wifi
-sudo nmcli device wifi connect "Enel Wifi" password "KF7MPGKHF3"
+sudo nmcli device wifi connect "<SSID>" password "<PASSWORD>"
 ```
 
 ### Remote Access Points
