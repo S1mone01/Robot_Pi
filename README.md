@@ -51,6 +51,7 @@ ls /dev/ttyUSB*
 ```bash
 sudo systemctl restart chrony
 ```
+>This command was used when the Raspberry Pi was acting as a hotspot to synchronize the system time.
 
 ### 2. Launch Configurations
 
