@@ -67,34 +67,40 @@ You can connect to a remote server using either **Ubuntu File Manager (SFTP)** o
 ## 🎮 Robot Control
 
 ### Manual Control
-```bash
-# Keyboard control
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
-# Joystick control
+- **Keyboard control**
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+- **Joystick control**
+```bash
 ros2 launch create_bringup joy_teleop.launch.py
 ```
 
 ### Hardware Control
+- **Main brush motor**
 ```bash
-# Main brush motor
 ros2 topic pub --once /main_brush_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
-
-# Side brush motor
+```
+- **Side brush motor**
+```bash
 ros2 topic pub --once /side_brush_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
-
-# Vacuum motor
+```
+- **Vacuum motor**
+```bash
 ros2 topic pub --once /vacuum_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
 ```
 
 ### ⚡ Docking Operations
+📌 The dock position coordinates are specified inside the launch file.
+- **Dock the robot**
 ```bash
-# Dock the robot
 ros2 launch create_bringup docking.py
-
-# Undock the robot
+```
+- **Undock the robot**
+```bash
 ros2 launch create_bringup undocking.py
-📌 The dock position coordinates are specified inside the configuration file.
+```
 
 ## 🗺 Navigation & Mapping
 
