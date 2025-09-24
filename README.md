@@ -223,68 +223,30 @@ For Raspberry Pi Camera with Ubuntu 24.04, follow the comprehensive setup guide:
 ### Essential Debugging Commands
 
 #### System Status Checks
+
+**List all active ROS2 topics**
 ```bash
-# List all active ROS2 topics
 ros2 topic list
-
-# Monitor specific topic data
+```
+**Monitor specific topic data**
+```bash
 ros2 topic echo /topic_name
-
-# Check running nodes
+```
+**Check running nodes**
+```bash
 ros2 node list
-
-# Node information
-ros2 node info /node_name
 ```
 
 #### Network Diagnostics
-```bash
-# Check network connectivity
-ping <robot_ip_address>
 
-# Test ROS2 communication
+**Check network connectivity**
+```bash
+ping <robot_ip_address>
+```
+**Test ROS2 communication**
+```bash
 ros2 topic hz /cmd_vel
 ```
-
-#### Hardware Diagnostics
-```bash
-# Check USB devices
-lsusb
-
-# Monitor system resources
-htop
-
-# Check camera status
-v4l2-ctl --list-devices
-```
-
-### Common Issues & Solutions
-
-| Issue | Symptom | Solution |
-|-------|---------|----------|
-| **No camera feed** | Black screen in Foxglove | Check camera permissions and drivers |
-| **Navigation failure** | Robot doesn't move autonomously | Verify LIDAR data and map loading |
-| **Network timeout** | Connection drops frequently | Check WiFi signal strength and stability |
-| **Motor unresponsive** | Brushes/vacuum don't activate | Verify motor controller connections |
-
-### Performance Optimization
-
-#### CPU Usage Monitoring
-```bash
-# Monitor ROS2 node CPU usage
-ros2 run rqt_top rqt_top
-```
-
-#### Memory Management
-```bash
-# Check memory usage
-free -h
-
-# Monitor ROS2 memory consumption
-ps aux | grep ros
-```
-
----
 
 ## 📚 Additional Resources
 
@@ -292,18 +254,6 @@ ps aux | grep ros
 - Launch files: `~/robot/src/create_bringup/launch/`
 - Parameter files: `~/robot/src/create_bringup/config/`
 - Map files: `~/robot/src/create_bringup/map/`
-
-### Useful ROS2 Commands
-```bash
-# Build workspace
-colcon build --symlink-install
-
-# Source workspace
-source install/setup.bash
-
-# Clean build
-rm -rf build/ install/ log/
-```
 
 ---
 
