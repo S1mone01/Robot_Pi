@@ -22,25 +22,29 @@ A comprehensive robotics control system built with ROS2 Jazzy, featuring autonom
 
 ### 1. Environment Setup
 
-- **Source ROS2 environment**  
-- **Check USB ports**  
-- **Synchronize system time**  
-
+- **Source ROS2 environment**
 ```bash
 source ~/robot/install/setup.bash
-ls /dev/ttyUSB*
-sudo systemctl restart chrony
-
-
-### 2. Basic Robot Launch
+```
+- **Check USB ports**
 ```bash
-# Camera only
+ls /dev/ttyUSB*
+```
+- **Synchronize system time**  
+```bash
+sudo systemctl restart chrony
+```
+### 2. Basic Robot Launch
+- **Camera only**
+```bash
 ros2 launch create_bringup create_2.py camera:=true navigation:=false foxglove:=false
-
-# Full system on Raspberry Pi
+```
+- **Full system on Raspberry Pi**
+```bash
 ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true map:=map_file.yaml
-
-# Full system with AI integration
+```
+- **Full system with AI integration**
+```bash
 ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true rosbridge:=true map:=map_file.yaml
 ```
 
