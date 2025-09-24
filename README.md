@@ -21,16 +21,16 @@ A comprehensive robotics control system built with ROS2 Jazzy, featuring autonom
 ## 🚀 Quick Start
 
 ### 1. Environment Setup
+
+- **Source ROS2 environment**  
+- **Check USB ports**  
+- **Synchronize system time**  
+
 ```bash
-# Source ROS2 environment
 source ~/robot/install/setup.bash
-
-# Check USB ports
 ls /dev/ttyUSB*
-
-# Synchronize system time
 sudo systemctl restart chrony
-```
+
 
 ### 2. Basic Robot Launch
 ```bash
