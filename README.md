@@ -102,42 +102,6 @@ ros2 launch create_bringup docking.py
 ros2 launch create_bringup undocking.py
 ```
 
-## 🗺 Navigation & Mapping
-
-### Real-time Navigation
-```bash
-# With RViz
-ros2 launch create_bringup visual.py
-
-# Without RViz
-ros2 launch create_bringup visual.py use_rviz:=false
-```
-
-### Simulation Navigation
-```bash
-ros2 launch create_bringup visual.py map:=/home/simone/robot/src/create_robot/create_bringup/map/map_simulazione.yaml use_sim_time:=true
-```
-
-### Mapping Operations
-
-#### Real-time Mapping
-```bash
-# With RViz
-ros2 launch create_bringup visualM.py
-
-# Without RViz
-ros2 launch create_bringup visualM.py use_rviz:=false
-
-# Start exploration
-ros2 run custom_explorer explorer
-```
-
-#### Simulation Mapping
-```bash
-ros2 launch create_bringup visualM.py use_sim_time:=true
-ros2 run custom_explorer explorer
-```
-
 ### Map Management
 **Maps Directory:** `/home/simone/robot/install/create_bringup/share/create_bringup`
 
@@ -154,57 +118,21 @@ ros2 launch create_bringup zone_maker.py node:=speed slow_value:=40
 ```
 *Speed values range from 1% to 99%*
 
-## 🔧 Advanced Features
-
-### Gazebo Simulation
-
-#### Full Simulation
-```bash
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix create_description)/share
-export IGN_GAZEBO_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH:$(ros2 pkg prefix create_description)/share
-ros2 launch gazebo robot.launch.py
-```
-
-#### Headless Simulation
-```bash
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix create_description)/share
-export IGN_GAZEBO_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH:$(ros2 pkg prefix create_description)/share
-ros2 launch gazebo robot.launch.py headless:=true
-```
 
 ### Foxglove Integration
 ```bash
 ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 host:=0.0.0.0
+```
+### AI Integration with LM Studio
+# Launch ROS bridge for AI communication
+```bash
+ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ```
 
 ### Localization
 ```bash
 ros2 launch create_bringup localization.py
 ```
-
-### LIDAR Integration
-```bash
-ros2 run xv11_lidar_python xv11_lidar --ros-args -p port:=/dev/ttyUSB...
-```
-
-### AI Integration with LM Studio
-```bash
-# Navigate to LM Studio directory
-cd /Documents/squashfs-root
-./lm-studio
-
-# Launch ROS bridge for AI communication
-ros2 launch rosbridge_server rosbridge_websocket_launch.xml
-```
-
-## 📁 Important File Locations
-
-| Component | Path |
-|-----------|------|
-| SLAM Config | `/opt/ros/jazzy/share/slam_toolbox/config/mapper_params_online_async.yaml` |
-| Navigation Config | `/opt/ros/jazzy/share/nav2_bringup/params/nav2_params.yaml` |
-| Gazebo Worlds | `/opt/ros/jazzy/opt/gz_sim_vendor/share/gz/gz-sim8/worlds` |
-| Robot Maps | `/home/simone/robot/install/create_bringup/share/create_bringup` |
 
 ## 📷 Camera Setup
 
