@@ -2,7 +2,10 @@
 
 A comprehensive robotics control system built with ROS2 Jazzy, featuring autonomous navigation, mapping, camera integration, and remote operation capabilities.
 
+---
+
 ## 📋 Table of Contents
+
 - [Prerequisites](#prerequisites)
 - [Quick Start](#quick-start)
 - [System Configuration](#system-configuration)
@@ -11,148 +14,302 @@ A comprehensive robotics control system built with ROS2 Jazzy, featuring autonom
 - [Advanced Features](#advanced-features)
 - [Troubleshooting](#troubleshooting)
 
+---
+
 ## 🛠 Prerequisites
 
+### System Requirements
 - **ROS2 Jazzy** installed and configured
 - **Ubuntu 24.04** (recommended)
 - Robot hardware with camera, LIDAR, and motor controllers
 - Network connectivity between robot and control PC
 
+### Hardware Components
+- Raspberry Pi 5 (recommended)
+- Compatible camera module
+- LIDAR sensor
+- Motor controllers for brushes and vacuum
+- Docking station
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Environment Setup
 
-- **Source ROS2 environment**
+#### Source ROS2 Environment
 ```bash
 source ~/robot/install/setup.bash
 ```
-- **Check USB ports**
+
+#### Check USB Connections
 ```bash
 ls /dev/ttyUSB*
 ```
-- **Synchronize system time**  
+
+#### Synchronize System Time
 ```bash
 sudo systemctl restart chrony
 ```
-### 2. Basic Robot Launch
-- **Camera only**
+
+### 2. Launch Configurations
+
+#### 🎥 Camera Only Mode
 ```bash
 ros2 launch create_bringup create_2.py camera:=true navigation:=false foxglove:=false
 ```
-- **Full system on Raspberry Pi**
+
+#### 🗺️ Full System (Raspberry Pi)
 ```bash
-ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true map:=map_file.yaml
-```
-- **Full system with AI integration**
-```bash
-ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=true rosbridge:=true map:=map_file.yaml
+ros2 launch create_bringup create_2.py \
+  camera:=true \
+  navigation:=true \
+  foxglove:=true \
+  map:=map_file.yaml
 ```
 
-## 🌐 Network Configuration
+#### 🧠 AI-Enhanced System
+```bash
+ros2 launch create_bringup create_2.py \
+  camera:=true \
+  navigation:=true \
+  foxglove:=true \
+  rosbridge:=true \
+  map:=map_file.yaml
+```
 
-### WiFi Connection
+---
+
+## 🌐 System Configuration
+
+### Network Setup
+
+#### WiFi Connection
 ```bash
 sudo nmcli device wifi connect "<SSID>" password "<PASSWORD>"
 ```
 
-### 🌍 Remote Access Points
+#### Remote Access Configuration
 
-You can connect to a remote server using either **Ubuntu File Manager (SFTP)** or the **terminal (SSH)**:
+| Method | Access Command | Description |
+|--------|---------------|-------------|
+| **SFTP** | `sftp://user@<IP_ADDRESS>` | File transfer via Ubuntu File Manager |
+| **SSH** | `ssh user@<IP_ADDRESS>` | Terminal remote access |
 
-| Method | Command Example |
-|--------|-----------------|
-| **SFTP** | `sftp://user@<IP_ADDRESS>` |
-| **SSH**  | `ssh user@<IP_ADDRESS>` |
+---
 
 ## 🎮 Robot Control
 
-### Manual Teleop
+### Manual Control Options
 
-- **Keyboard control**
+#### ⌨️ Keyboard Teleop
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
-- **Joystick control**
+
+#### 🎮 Joystick Control
 ```bash
 ros2 launch create_bringup joy_teleop.launch.py
 ```
 
-### Hardware Control
-- **Main brush motor**
+### Hardware Component Control
+
+#### 🧹 Cleaning System Motors
+
+**Main Brush Motor**
 ```bash
 ros2 topic pub --once /main_brush_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
 ```
-- **Side brush motor**
+
+**Side Brush Motor**
 ```bash
 ros2 topic pub --once /side_brush_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
 ```
-- **Vacuum motor**
+
+**Vacuum Motor**
 ```bash
 ros2 topic pub --once /vacuum_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
 ```
 
-### ⚡ Docking Operations
-📌 The dock position coordinates are specified inside the launch file.
-- **Dock the robot**
+> **Note:** Duty cycle values range from 0.0 to 1.0 (0% to 100%)
+
+---
+
+## ⚡ Advanced Robot Operations
+
+### Autonomous Docking
+
+> 📌 **Important:** Dock position coordinates are specified inside the launch file configuration.
+
+#### Dock the Robot
 ```bash
 ros2 launch create_bringup docking.py
 ```
-- **Undock the robot**
+
+#### Undock the Robot
 ```bash
 ros2 launch create_bringup undocking.py
 ```
 
 ### Map Management
-**Maps Directory:** `/home/simone/robot/install/create_bringup/share/create_bringup`
 
-## 🛡 Zone Management
+**Maps Storage Location:**
+```
+/home/simone/robot/install/create_bringup/share/create_bringup/
+```
 
-### Exclusion Zones
+#### Map Operations
+- Store custom maps in the maps directory
+- Specify map files using the `map:=map_file.yaml` parameter
+- Ensure proper file permissions for map access
+
+---
+
+## 🛡 Zone Management System
+
+### Exclusion Zones Setup
 ```bash
 ros2 launch create_bringup zone_maker.py
 ```
 
-### Speed Limit Zones
+### Speed Limit Zones Configuration
 ```bash
 ros2 launch create_bringup zone_maker.py node:=speed slow_value:=40
 ```
-*Speed values range from 1% to 99%*
 
+> **Speed Range:** Values from 1% to 99% of maximum speed
 
-### Foxglove Integration
+### Zone Types
+- **Exclusion Zones:** Areas the robot should avoid
+- **Speed Zones:** Areas with reduced speed limits
+- **Priority Zones:** Areas requiring special attention
+
+---
+
+## 🔧 Integration & Monitoring
+
+### Foxglove Bridge Integration
 ```bash
-ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 host:=0.0.0.0
+ros2 launch foxglove_bridge foxglove_bridge_launch.xml \
+  port:=8765 \
+  host:=0.0.0.0
 ```
+
 ### AI Integration with LM Studio
-# Launch ROS bridge for AI communication
 ```bash
 ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ```
 
-### Localization
+### Robot Localization
 ```bash
 ros2 launch create_bringup localization.py
 ```
 
-## 📷 Camera Setup
+---
 
-For Raspberry Pi Camera with Ubuntu 24.04, follow the setup guide:
-[Raspberry Pi 5 Camera Setup](https://www.reddit.com/r/Ubuntu/comments/1ddpnto/raspberry_pi_5_running_2404_with_a_pi_camera_3/)
+## 📷 Camera Configuration
 
-## 🔍 Troubleshooting
+### Raspberry Pi Camera Setup
 
-### Debugging Commands
+For Raspberry Pi Camera with Ubuntu 24.04, follow the comprehensive setup guide:
 
-- **Check ROS2 topics**
+**Reference:** [Raspberry Pi 5 Camera Setup Guide](https://www.reddit.com/r/Ubuntu/comments/1ddpnto/raspberry_pi_5_running_2404_with_a_pi_camera_3/)
+
+#### Key Steps:
+1. Enable camera interface in `raspi-config`
+2. Install required camera drivers
+3. Configure camera permissions
+4. Test camera functionality
+
+---
+
+## 🔍 Troubleshooting & Diagnostics
+
+### Essential Debugging Commands
+
+#### System Status Checks
 ```bash
+# List all active ROS2 topics
 ros2 topic list
-```
-- **Monitor specific topics**
-```bash
+
+# Monitor specific topic data
 ros2 topic echo /topic_name
-```
-- **Check node status**
-```bash
+
+# Check running nodes
 ros2 node list
+
+# Node information
+ros2 node info /node_name
 ```
 
+#### Network Diagnostics
+```bash
+# Check network connectivity
+ping <robot_ip_address>
+
+# Test ROS2 communication
+ros2 topic hz /cmd_vel
+```
+
+#### Hardware Diagnostics
+```bash
+# Check USB devices
+lsusb
+
+# Monitor system resources
+htop
+
+# Check camera status
+v4l2-ctl --list-devices
+```
+
+### Common Issues & Solutions
+
+| Issue | Symptom | Solution |
+|-------|---------|----------|
+| **No camera feed** | Black screen in Foxglove | Check camera permissions and drivers |
+| **Navigation failure** | Robot doesn't move autonomously | Verify LIDAR data and map loading |
+| **Network timeout** | Connection drops frequently | Check WiFi signal strength and stability |
+| **Motor unresponsive** | Brushes/vacuum don't activate | Verify motor controller connections |
+
+### Performance Optimization
+
+#### CPU Usage Monitoring
+```bash
+# Monitor ROS2 node CPU usage
+ros2 run rqt_top rqt_top
+```
+
+#### Memory Management
+```bash
+# Check memory usage
+free -h
+
+# Monitor ROS2 memory consumption
+ps aux | grep ros
+```
+
+---
+
+## 📚 Additional Resources
+
+### Configuration Files
+- Launch files: `~/robot/src/create_bringup/launch/`
+- Parameter files: `~/robot/src/create_bringup/config/`
+- Map files: `~/robot/install/create_bringup/share/create_bringup/`
+
+### Useful ROS2 Commands
+```bash
+# Build workspace
+colcon build --symlink-install
+
+# Source workspace
+source install/setup.bash
+
+# Clean build
+rm -rf build/ install/ log/
+```
+
+---
+
+*This guide provides comprehensive instructions for operating your ROS2-based robot control system. For additional support, consult the official ROS2 documentation or your hardware manufacturer's guidelines.*
