@@ -51,12 +51,14 @@ ros2 launch create_bringup create_2.py camera:=true navigation:=true foxglove:=t
 sudo nmcli device wifi connect "<SSID>" password "<PASSWORD>"
 ```
 
-### Remote Access Points
-| Location | SFTP | SSH |
-|----------|------|-----|
-| Santa Ninfa | `sftp://simone@192.168.1.50` | `ssh 192.168.1.50` |
-| Hot Spot | `sftp://simone@10.42.0.1` | `ssh 10.42.0.1` |
-| Palermo | `sftp://simone@192.168.1.132` | `ssh 192.168.1.132` |
+### 🌍 Remote Access Points
+
+You can connect to a remote server using either **Ubuntu File Manager (SFTP)** or the **terminal (SSH)**:
+
+| Method | Command Example |
+|--------|-----------------|
+| **SFTP** | `sftp://user@<IP_ADDRESS>` |
+| **SSH**  | `ssh user@<IP_ADDRESS>` |
 
 ## 🎮 Robot Control
 
@@ -81,14 +83,14 @@ ros2 topic pub --once /side_brush_motor create_msgs/msg/MotorSetpoint "{duty_cyc
 ros2 topic pub --once /vacuum_motor create_msgs/msg/MotorSetpoint "{duty_cycle: 1.0}"
 ```
 
-### Docking Operations
+### ⚡ Docking Operations
 ```bash
 # Dock the robot
 ros2 launch create_bringup docking.py
 
 # Undock the robot
 ros2 launch create_bringup undocking.py
-```
+📌 The dock position coordinates are specified inside the configuration file.
 
 ## 🗺 Navigation & Mapping
 
