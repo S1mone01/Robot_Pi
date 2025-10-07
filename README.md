@@ -16,7 +16,7 @@ A fully integrated robotics control system using ROS2 Jazzy, designed for the iR
 - [Camera Configuration](#-camera-configuration)
 - [Troubleshooting & Diagnostics](#-troubleshooting--diagnostics)
 - [Additional Resources](#-additional-resources)
-
+-   **Simulation:** [Robot_Pc Repository](https://github.com/S1mone01/Robot_Pc)
 ---
 
 ## 🛠 Prerequisites
