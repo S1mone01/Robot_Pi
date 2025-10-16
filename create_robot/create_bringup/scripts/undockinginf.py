@@ -94,19 +94,28 @@ class UndockAndReverseNode(Node):
         pose_msg.header.stamp = self.get_clock().now().to_msg()
         pose_msg.header.frame_id = "map"  # Deve essere 'map' per AMCL
         
-        # 🔹 Coordinate del dock nella mappa
+        # Coordinate del dock nella mappa (modifica coi valori che vuoi)
         pose_msg.pose.pose.position.x = -10.556
         pose_msg.pose.pose.position.y = -3.795
         pose_msg.pose.pose.position.z = 0.0
         
-        # Orientamento (quaternion)
+        # Orientamento in quaternion
         pose_msg.pose.pose.orientation.x = 0.0
         pose_msg.pose.pose.orientation.y = 0.0
         pose_msg.pose.pose.orientation.z = -0.391
         pose_msg.pose.pose.orientation.w = 0.921
         
-        # Imposta la covarianza per indicare la certezza della posizione
-        # Diagonale principale: [x, y, z, roll, pitch, yaw]
+        # Covarianza (matrice 6x6 in forma flatten 36 elementi)
+        # Ordine: x, y, z, rotation_x, rotation_y, rotation_z (yaw)
+        # Valori tipici per AMCL: 0.25 per x,y e 0.06854 per yaw
+        pose_msg.pose.covariance = [
+            0.25, 0.0,  0.0,  0.0,  0.0,  0.0,    # x
+            0.0,  0.25, 0.0,  0.0,  0.0,  0.0,    # y
+            0.0,  0.0,  0.0,  0.0,  0.0,  0.0,    # z (non usato in 2D)
+            0.0,  0.0,  0.0,  0.0,  0.0,  0.0,    # rotation_x (non usato in 2D)
+            0.0,  0.0,  0.0,  0.0,  0.0,  0.0,    # rotation_y (non usato in 2D)
+            0.0,  0.0,  0.0,  0.0,  0.0,  0.06854 # rotation_z (yaw)
+        ]
         
         self.initialpose_pub.publish(pose_msg)
         self.get_logger().info(f"📍 Posizione stimata pubblicata su /initialpose: "

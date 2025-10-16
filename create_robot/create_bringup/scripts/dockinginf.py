@@ -38,13 +38,13 @@ class DelayedShutdownDockingController(Node):
         pose.header.frame_id = 'map'
         pose.header.stamp = self.get_clock().now().to_msg()
         # Coordinate del punto di pre-docking
-        pose.pose.position.x = -10.556
-        pose.pose.position.y = -3.795
+        pose.pose.position.x = -0.1128992251777689
+        pose.pose.position.y = -0.003261919421412198
         pose.pose.position.z = 0.0
         pose.pose.orientation.x = 0.0
         pose.pose.orientation.y = 0.0
-        pose.pose.orientation.z = -0.391
-        pose.pose.orientation.w = 0.921
+        pose.pose.orientation.z = -0.1747426538419712
+        pose.pose.orientation.w = 0.9846141401220404
 
         goal_msg.pose = pose
 

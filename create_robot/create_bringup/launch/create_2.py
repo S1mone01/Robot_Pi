@@ -120,18 +120,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    combined_button_listener_node = ExecuteProcess(
-        cmd=[
-            'python3',
-            PathJoinSubstitution([
-                FindPackageShare('create_bringup'),
-                'scripts',
-                'combined_button_listener.py'
-            ])
-        ],
-        output='screen'
-    )
-
     camera_node = Node(
         package='camera_ros',
         executable='camera_node',
@@ -240,7 +228,6 @@ def generate_launch_description():
         include_description,
         lidar_node,
         bumper_pointcloud_node,
-        combined_button_listener_node,
         camera_node,
         republish_node,
         foxglove_bridge,
